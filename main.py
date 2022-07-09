@@ -2,14 +2,14 @@ import mirror_engine
 import log
 logger = log.make_logger("log")
 logger.info("Starting.")
-
+engine = mirror_engine.MirrorEngine()
+engine.initialize()
 while True:
-	engine = mirror_engine.MirrorEngine()
-	engine.initialize()
 	try:
+		engine.update()
 		engine.run()
-	except:
-		logger.exception("Uncaught exception!")
+	except Exception as e:
+		logger.exception(f"Uncaught exception! {e}")
 
 # TODO:
 # compare diffs on up and downstream

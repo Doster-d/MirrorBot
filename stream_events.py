@@ -16,12 +16,12 @@ def github_event_stream(github_api, repos, req_types):
 			try:
 				for e in repo.get_events():
 					event_list.append(e)
-			except:
-				logger.exception("An error occured during event acquisition.")
+			except Exception as e:
+				logger.exception(f"An error occurred during event acquisition. {e}")
 				continue
 			event_list = [e for e in event_list if int(
 				e.id) > last_seen_ids[repo.html_url]]
-			event_list.sort(key=lambda e: int(e.id))
+			event_list.sort(key=lambda x: int(x.id))
 			if not event_list:
 				logger.debug("No new events.")
 			for e in event_list:

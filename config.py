@@ -1,4 +1,5 @@
 import logging
+from json import load
 
 api_key = ""
 
@@ -14,3 +15,8 @@ mirror_branch_prefix = "upstream-merge-"
 
 log_level = logging.INFO
 event_stream_wait = 60
+
+with open("config.json") as f:
+    data = load(f)
+    for key, value in data.items():
+        exec(f"{key}=\"{value}\"")
